@@ -16,14 +16,22 @@ ServerApiUtils.getAll();
     <tr each={ item in this.items }>
       <td><h4>{ item.name }</h4></td>
       <td>
-        <a href="#" onclick={ parent.startMeeting } class="btn btn-primary">Start a Meeting</a>
-        <a href="#" class="btn btn-primary">Edit</a>
-        <a href="#" class="btn btn-primary">Remove</a>
+        <a href="#" onclick={ parent.startMeeting } class="btn btn-primary">
+          <span class="glyphicon glyphicon-time" aria-hidden="true"></span> Start a Meeting
+          </a>
+        <a href="#" class="btn btn-primary">
+          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+        </a>
+        <a href="#" class="btn btn-primary">
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Remove
+        </a>
       </td>
     </tr>
   </table>
 
-  <a href="#" onclick={ add } class="btn btn-primary">Add New Template</a>
+  <a href="#" onclick={ add } class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add New Template
+  </a>
 
   add() {
     riot.route('templates/add')

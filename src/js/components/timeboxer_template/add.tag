@@ -9,7 +9,7 @@ var flux_riot = require('flux-riot')
 
   <form>
     <div class="form-group">
-      <label for="templateName">Template Name</label>
+      <label for="templateName">Event Template Name</label>
       <input type="text" class="form-control" id="templateName" placeholder="Enter Template Name" onkeyup={ editTitle }>
     </div>
     <div class="form-group">
@@ -31,7 +31,7 @@ var flux_riot = require('flux-riot')
       <label class="sr-only" for="agendaTime">Agenda Time</label>
       <input type="text" class="form-control" id="agendaTime" placeholder="Enter Agenda Time" onkeyup={ editAgendaTime }>
     </div>
-    <button type="submit" disabled={ !(agendaTitleValue && agendaTimeValue) } class="btn btn-default">Add Agenda</button>
+    <button type="submit" disabled={ !(agendaTitleValue && agendaTimeValue) } class="btn btn-default">Add Agenda Item</button>
   </form>
 
   <hr>

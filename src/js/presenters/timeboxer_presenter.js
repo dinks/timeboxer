@@ -35,7 +35,7 @@ module.exports = {
     unmount();
 
     return app_tag = mount('timeboxer-template-add', {
-      title: "Add Timeboxer Template",
+      title: "Add Timeboxer Event Template",
       store: timeboxer_template_store
     });
   },
@@ -43,7 +43,7 @@ module.exports = {
   template_edit: function(id) {
     unmount();
     return app_tag = mount('timeboxer-template-edit', {
-      title: "Edit Timeboxer Template",
+      title: "Edit Timeboxer Event Template",
       templateId: id,
       store: timeboxer_template_store
     });
