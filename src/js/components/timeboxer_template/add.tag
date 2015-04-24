@@ -5,16 +5,18 @@ var flux_riot = require('flux-riot')
 
   <h3>{ opts.title }</h3>
 
+  <hr>
+
   <form>
     <div class="form-group">
       <label for="templateName">Template Name</label>
-      <input type="text" class="form-control" id="templateName" placeholder="Enter Template Name">
+      <input type="text" class="form-control" id="templateName" placeholder="Enter Template Name" onkeyup={ editTitle }>
     </div>
     <div class="form-group">
       <label>Agenda</label>
       <ul class="list-group">
         <li class="list-group-item" each={ item in agendaItems }>
-          { item.title } for { item.time } minutes
+          <b>{ item.title }</b> for <b>{ item.time }</b> minutes
         </li>
       </ul>
     </div>
@@ -23,14 +25,25 @@ var flux_riot = require('flux-riot')
   <form class="form-inline" onsubmit={ addAgenda }>
     <div class="form-group">
       <label class="sr-only" for="agendaTitle">Agenda</label>
-      <input type="text" class="form-control" id="agendaTitle" placeholder="Enter Agenda Title" onkeyup={ editTitle }>
+      <input type="text" class="form-control" id="agendaTitle" placeholder="Enter Agenda Title" onkeyup={ editAgendaTitle }>
     </div>
     <div class="form-group">
       <label class="sr-only" for="agendaTime">Agenda Time</label>
-      <input type="text" class="form-control" id="agendaTime" placeholder="Enter Agenda Time" onkeyup={ editTime }>
+      <input type="text" class="form-control" id="agendaTime" placeholder="Enter Agenda Time" onkeyup={ editAgendaTime }>
     </div>
     <button type="submit" disabled={ !(agendaTitleValue && agendaTimeValue) } class="btn btn-default">Add Agenda</button>
   </form>
+
+  <hr>
+
+  <a href="#" onclick={ saveTemplate } class="btn btn-success">
+    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Create
+  </a>
+  <a href="#" onclick={ cancel } class="btn btn-info">
+    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel
+  </a>
+
+  this.title = '';
 
   this.agendaItems = [];
 
@@ -45,11 +58,23 @@ var flux_riot = require('flux-riot')
   }
 
   editTitle(e) {
+    this.title = e.target.value;
+  }
+
+  editAgendaTitle(e) {
     this.agendaTitleValue = e.target.value;
   }
 
-  editTime(e) {
+  editAgendaTime(e) {
     this.agendaTimeValue = e.target.value;
+  }
+
+  saveTemplate() {
+
+  }
+
+  cancel() {
+    riot.route('#');
   }
 
 </timeboxer-template-add>
