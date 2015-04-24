@@ -4,7 +4,8 @@ var timeboxer_presenter = require('../presenters/timeboxer_presenter.js');
 
 BaseRouter.routes(timeboxer_presenter.index,
   'templates/add', timeboxer_presenter.template_add,
-  'templates/edit/:id', timeboxer_presenter.template_edit);
+  'templates/edit/:id', timeboxer_presenter.template_edit,
+  'meeting/start', timeboxer_presenter.meeting_start);
 
 module.exports = {
   start: BaseRouter.start

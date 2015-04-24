@@ -4,6 +4,7 @@ var timeboxer_template_store = require('../stores/timeboxer_template_store.js');
 require('../components/index.tag');
 require('../components/timeboxer_template/add.tag');
 require('../components/timeboxer_template/edit.tag');
+require('../components/timeboxer_meeting/start.tag');
 
 var app_tag = null;
 
@@ -45,6 +46,14 @@ module.exports = {
       title: "Edit Timeboxer Template",
       templateId: id,
       store: timeboxer_template_store
+    });
+  },
+
+  meeting_start: function() {
+    unmount();
+    return app_tag = mount('timeboxer-meeting-start', {
+      title: "Start a Meeting",
+      template_store: timeboxer_template_store
     });
   }
 };

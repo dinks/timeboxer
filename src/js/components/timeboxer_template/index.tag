@@ -16,7 +16,7 @@ ServerApiUtils.getAll();
     <tr each={ item in this.items }>
       <td><h4>{ item.name }</h4></td>
       <td>
-        <a href="#" class="btn btn-primary">Create a Meeting</a>
+        <a href="#" onclick={ startMeeting } class="btn btn-primary">Start a Meeting</a>
         <a href="#" class="btn btn-primary">Edit</a>
         <a href="#" class="btn btn-primary">Remove</a>
       </td>
@@ -36,6 +36,11 @@ ServerApiUtils.getAll();
   updateFromStore() {
     this.getDataFromStore()
     this.update()
+  }
+
+  startMeeting(id) {
+    console.log('fsdf')
+    riot.route('meeting/start')
   }
 
   flux_riot.storeMixin(this, opts.store, this.updateFromStore)
