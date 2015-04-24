@@ -6,6 +6,9 @@ require('../components/timeboxer_template/add.tag');
 require('../components/timeboxer_template/edit.tag');
 require('../components/timeboxer_meeting/start.tag');
 
+require('../components/contact.tag');
+require('../components/about.tag');
+
 var app_tag = null;
 
 var unmount = function() {
@@ -55,6 +58,20 @@ module.exports = {
       title: "Start a Meeting",
       templateId: id,
       template_store: timeboxer_template_store
+    });
+  },
+
+  about: function() {
+    unmount();
+    return app_tag = mount('timeboxer-about', {
+      title: "About Us"
+    });
+  },
+
+  contact: function() {
+    unmount();
+    return app_tag = mount('timeboxer-contact', {
+      title: "Contact Us"
     });
   }
 };

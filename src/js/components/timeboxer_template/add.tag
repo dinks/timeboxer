@@ -24,12 +24,12 @@ var flux_riot = require('flux-riot')
 
   <form class="form-inline" onsubmit={ addAgenda }>
     <div class="form-group">
-      <label class="sr-only" for="agendaTitle">Agenda</label>
-      <input type="text" class="form-control" id="agendaTitle" placeholder="Enter Agenda Title" onkeyup={ editAgendaTitle }>
+      <label class="sr-only" for="agendaTitle">Item Title</label>
+      <input type="text" class="form-control" id="agendaTitle" placeholder="Enter Agenda Item Title" onkeyup={ editAgendaTitle }>
     </div>
     <div class="form-group">
-      <label class="sr-only" for="agendaTime">Agenda Time</label>
-      <input type="text" class="form-control" id="agendaTime" placeholder="Enter Agenda Time" onkeyup={ editAgendaTime }>
+      <label class="sr-only" for="agendaTime">Item Time</label>
+      <input type="text" class="form-control" id="agendaTime" placeholder="Enter Agenda Item Time" onkeyup={ editAgendaTime }>
     </div>
     <button type="submit" disabled={ !(agendaTitleValue && agendaTimeValue) } class="btn btn-default">Add Agenda Item</button>
   </form>

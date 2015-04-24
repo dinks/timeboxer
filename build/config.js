@@ -28,6 +28,10 @@ module.exports = {
     src: src + "/vendor/*.js",
     dest: dest + "/js"
   },
+  copy_img: {
+    src: src + "/img/*",
+    dest: dest + "/img"
+  },
   browserify: {
     opts: {
       fullPaths: true,
