@@ -2,6 +2,7 @@ require('./todo_list.tag')
 var todos = require('../actions/todos.coffee')
 var flux_riot = require('flux-riot')
 
+
 <todo-app>
 
   <h3>{ opts.title }</h3>

@@ -1,6 +1,9 @@
 var timeboxer = require('../../actions/timeboxer.js')
 var flux_riot = require('flux-riot')
 
+var ServerApiUtils = require('../../utils/ServerApiUtils.js');
+ServerApiUtils.getAll();
+
 <timeboxer-template-index>
 
   <h3>{ opts.title }</h3>

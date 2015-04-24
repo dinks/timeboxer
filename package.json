@@ -31,9 +31,10 @@
     "test": "gulp jest"
   },
   "dependencies": {
-    "object-assign": "^2.0.0",
-    "keymirror": "^0.1.1",
     "flux-riot": "^0.2.0",
+    "keymirror": "^0.1.1",
+    "object-assign": "^2.0.0",
+    "parse": "^1.4.2",
     "riot": "^2.0.14"
   }
 }
