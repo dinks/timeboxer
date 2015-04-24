@@ -16,9 +16,13 @@ module.exports = {
     src: src + "/styles/**/*.less",
     dest: dest + "/styles"
   },
-  copy: {
+  copy_styles: {
     src: src + "/styles/bootstrap.min.css",
     dest: dest + "/styles"
+  },
+  copy_fonts: {
+    src: src + "/fonts/glyphicons-halflings-regular.*",
+    dest: dest + "/fonts"
   },
   browserify: {
     opts: {
