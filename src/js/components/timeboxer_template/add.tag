@@ -1,5 +1,6 @@
-var timeboxer = require('../../actions/timeboxer.js')
-var flux_riot = require('flux-riot')
+var timeboxer = require('../../actions/timeboxer.js');
+var flux_riot = require('flux-riot');
+var TimeBoxer = require('../../actions/timeboxer.js');
 
 <timeboxer-template-add>
 
@@ -16,7 +17,7 @@ var flux_riot = require('flux-riot')
       <label>Agenda</label>
       <ul class="list-group">
         <li class="list-group-item" each={ item in agendaItems }>
-          <b>{ item.title }</b> for <b>{ item.time }</b> minutes
+          <b>{ item.name }</b> for <b>{ item.time }</b> minutes
         </li>
       </ul>
     </div>
@@ -50,7 +51,7 @@ var flux_riot = require('flux-riot')
   addAgenda() {
     if (this.agendaTitleValue && this.agendaTimeValue) {
       this.agendaItems.push({
-        title: this.agendaTitleValue,
+        name: this.agendaTitleValue,
         time: this.agendaTimeValue
       });
       this.agendaTitleValue = this.agendaTimeValue = this.agendaTime.value = this.agendaTitle.value = '';
@@ -70,11 +71,19 @@ var flux_riot = require('flux-riot')
   }
 
   saveTemplate() {
-
+    TimeBoxer.saveTemplate({
+      name: this.title,
+      agenda: this.agendaItems
+    });
   }
 
+  updateFromStore() {
+    riot.route('#');
+  }
   cancel() {
     riot.route('#');
   }
+
+  flux_riot.storeMixin(this, opts.store, this.updateFromStore)
 
 </timeboxer-template-add>

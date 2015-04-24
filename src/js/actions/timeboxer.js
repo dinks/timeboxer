@@ -11,6 +11,7 @@ var dispatch = function(type, data) {
 
 module.exports = {
   saveTemplate: function(task) {
+    console.log(task);
     return dispatch(ActionTypes.TEMPLATE_SAVE, task);
   },
   removeTemplate: function(task) {
