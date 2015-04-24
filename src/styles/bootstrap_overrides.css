@@ -44,6 +44,14 @@
   background-color: #F5F5F5;
 }
 
+.badge {
+  background-color: #1363AA;
+}
+
+.progress {
+  height: 30px;
+}
+
 @media (min-width: 768px) {
   .nav-justified {
     max-height: 52px;

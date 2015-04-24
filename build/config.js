@@ -24,6 +24,10 @@ module.exports = {
     src: src + "/fonts/glyphicons-halflings-regular.*",
     dest: dest + "/fonts"
   },
+  copy_js: {
+    src: src + "/vendor/*.js",
+    dest: dest + "/js"
+  },
   browserify: {
     opts: {
       fullPaths: true,
