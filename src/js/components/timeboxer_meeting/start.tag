@@ -25,7 +25,7 @@ var flux_riot = require('flux-riot')
           </a>
         </div>
         <div class="col-md-6">
-          <a href="#" onclick={ nextAgenda } class="btn btn-block btn-info">
+          <a href="#" onclick={ nextAgenda } class="btn btn-block btn-info" id="nextAgendaBtn">
             <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
             Next
           </a>
@@ -107,6 +107,10 @@ var flux_riot = require('flux-riot')
           $(this.progressbar).find('.progress-bar').css({
             width: percent + '%'
           }).addClass(extraClass);
+
+          if(t <= 0) {
+            $(this.nextAgendaBtn).click();
+          }
         }.bind(this)
       }
     });
