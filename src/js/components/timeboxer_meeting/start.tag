@@ -8,8 +8,8 @@ var flux_riot = require('flux-riot')
   <hr>
 
   <div class="row">
-    <div class="col-md-6">
-      <h3>{ this.currentAgenda.name }</h3>
+    <div class="col-md-8">
+      <h3 class="agenda-name">{ this.currentAgenda.name }</h3>
       <div id="timingClock"></div>
 
       <div class="progress" id="progressbar">
@@ -33,29 +33,56 @@ var flux_riot = require('flux-riot')
       </div>
 
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <ul class="list-group">
-        <li class="list-group-item" each={ item in this.template.agenda }>
-          <b>{ item.name }</b> <span class="badge">{ item.time } minutes</span>
+        <li class="list-group-item" each={ item, index in this.template.agenda }>
+          <input type="checkbox" id={ 'agendaItem'+ index } disabled> <b>{ item.name }</b> <span class="badge">{ item.time } minutes</span>
         </li>
       </ul>
     </div>
   </div>
 
+  <div class="modal fade" id="allDone">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Notice</h4>
+        </div>
+        <div class="modal-body">
+          <p>Great Job finishing the meeting!!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   this.currentAgendaIndex = 0;
-  this.currentAgendaStatus = 'paused';
   this.currentAgendaTime = 1;
 
   setCurrentAgenda() {
     if(this.template) {
       this.currentAgenda = this.template.agenda[this.currentAgendaIndex];
-      this.currentAgendaTime = parseInt(this.currentAgenda.time) * 60;
-      this.timerClock.setTime(this.currentAgendaTime);
+      if (this.currentAgenda) {
+        this.currentAgendaTime = parseInt(this.currentAgenda.time) * 60;
+        this.timerClock.setTime(this.currentAgendaTime);
+      } else {
+        $(this.allDone).modal();
+      }
     }
   }
 
   getTemplateFromStore() {
-    this.template = opts.template_store.getAll()[0];
+    this.template = opts.template_store.getAll()[opts.templateId];
+  }
+
+  nextAgenda() {
+    this.resetStatus();
+    $('#agendaItem'+this.currentAgendaIndex).prop('checked', true);
+    this.currentAgendaIndex++;
+    this.setCurrentAgenda();
   }
 
   initClock() {
@@ -106,10 +133,24 @@ var flux_riot = require('flux-riot')
     }
   }
 
+  resetStatus() {
+    this.timerClock.stop();
+    this.currentAgendaStatus = 'paused';
+    $(this.agendaContinue).html('Start');
+
+    $(this.progressbar).find('.progress-bar').
+    css({
+      width: '100%'
+    }).
+    removeClass('progress-bar-warning').
+    removeClass('progress-bar-danger');
+  }
+
   flux_riot.storeMixin(this, opts.template_store, this.updateFromStore);
 
   this.getTemplateFromStore();
   this.initClock();
+  this.resetStatus();
   this.setCurrentAgenda();
 
 </timeboxer-meeting-start>

@@ -49,10 +49,11 @@ module.exports = {
     });
   },
 
-  meeting_start: function() {
+  meeting_start: function(id) {
     unmount();
     return app_tag = mount('timeboxer-meeting-start', {
       title: "Start a Meeting",
+      templateId: id,
       template_store: timeboxer_template_store
     });
   }
