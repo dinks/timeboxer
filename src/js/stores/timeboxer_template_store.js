@@ -1,27 +1,28 @@
-assign = require 'object-assign'
-Dispatcher = require('flux-riot').Dispatcher
-ActionTypes = require('../constants/app_constants.coffee').ActionTypes
-flux_riot = require 'flux-riot'
+var assign = require('object-assign');
+var Dispatcher = require('flux-riot').Dispatcher;
+var ActionTypes = require('../constants/app_constants.coffee').ActionTypes;
+var flux_riot = require('flux-riot');
 
-_templates = [{
+var _templates = [{
   "name": "Hackday 2014 Time Boxer Presentation",
-  "agenda": [{
+  "agenda": [
+    {
       "name": "Short Brief",
       "time": "2"
-    },{
+    }, {
       "name": "Presentation of Details",
       "time": "5"
-    },{
+    }, {
       "name": "Summary",
       "time": "2"
-    },{
+    }, {
       "name": "Feedback",
       "time": "0.5"
     }
   ]
 }];
 
-getTemplates = function () {
+var getTemplates = function () {
   return _templates;
 };
 
