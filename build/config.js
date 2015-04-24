@@ -25,8 +25,8 @@ module.exports = {
     settings: {
       transform: [
         [ "riotify" ],
-        [ "coffeeify", {"extension": "coffee"} ],
-        '6to5ify' ]
+        [ "coffeeify", {"extension": "coffee"} ]
+      ]
     },
     src: src + '/js/index.coffee',
     dest: dest + '/js',
