@@ -4,7 +4,7 @@ function Storage () {
 
   function init () {
     if (!localStorage.sprintTask) {
-      localStorage.sprintTask = '{}';
+      localStorage.sprintTask = '[]';
     }
     this.dataStore = getFromLocalStorage();
   }

@@ -14,8 +14,8 @@ module.exports = {
     console.log(task);
     return dispatch(ActionTypes.TEMPLATE_SAVE, task);
   },
-  removeTemplate: function(task) {
-    return dispatch(ActionTypes.TEMPLATE_REMOVE, task);
+  removeTemplate: function(index) {
+    return dispatch(ActionTypes.TEMPLATE_REMOVE, index);
   },
   serverDataReceived: function (data) {
     console.log('serverDataReceived', data);

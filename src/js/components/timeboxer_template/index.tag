@@ -22,7 +22,7 @@ ServerApiUtils.getAll();
         <a href="#" class="btn btn-primary">
           <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
         </a>
-        <a href="#" class="btn btn-primary">
+        <a href="#" onclick={ parent.removeMeeting } class="btn btn-primary">
           <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Remove
         </a>
       </td>
@@ -49,6 +49,11 @@ ServerApiUtils.getAll();
   startMeeting(event) {
     var index = this.items.indexOf(event.item.item);
     riot.route('meeting/start/' + index);
+  }
+
+  removeMeeting (event){
+    var index = this.items.indexOf(event.item.item);
+    timeboxer.removeTemplate(index);
   }
 
   flux_riot.storeMixin(this, opts.store, this.updateFromStore)

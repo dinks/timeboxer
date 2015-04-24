@@ -66,7 +66,7 @@ var flux_riot = require('flux-riot')
     if(this.template) {
       this.currentAgenda = this.template.agenda[this.currentAgendaIndex];
       if (this.currentAgenda) {
-        this.currentAgendaTime = parseInt(this.currentAgenda.time) * 60;
+        this.currentAgendaTime = parseFloat(this.currentAgenda.time) * 60;
         this.timerClock.setTime(this.currentAgendaTime);
       } else {
         $(this.allDone).modal();

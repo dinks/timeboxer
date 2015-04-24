@@ -15,6 +15,9 @@ var addTemplates = function (data) {
 var saveTemplates = function (obj) {
   _templates = obj;
 };
+var removeTemplate = function (index) {
+  _templates.splice(index, 1);
+};
 
 TimeboxerTemplateStore = assign(new flux_riot.BaseStore(), {
   getAll: function () {
@@ -36,6 +39,11 @@ TimeboxerTemplateStore = assign(new flux_riot.BaseStore(), {
       break;
       case ActionTypes.TEMPLATE_SAVE:
         addTemplates(action.data);
+        serverUtil.saveAll(_templates);
+        TimeboxerTemplateStore.emitChange();
+      break;
+      case ActionTypes.TEMPLATE_REMOVE:
+        removeTemplate(action.index);
         serverUtil.saveAll(_templates);
         TimeboxerTemplateStore.emitChange();
       break;
