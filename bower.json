@@ -1,6 +1,6 @@
 {
-  "name": "flux-riot",
-  "version": "0.1.0",
+  "name": "timeboxer",
+  "version": "0.0.1",
   "dependencies": {
     "object-assign": "^2.0.0",
     "keymirror": "^0.1.1",
