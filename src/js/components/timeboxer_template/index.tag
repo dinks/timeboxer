@@ -16,7 +16,7 @@ ServerApiUtils.getAll();
     <tr each={ item in this.items }>
       <td><h4>{ item.name }</h4></td>
       <td>
-        <a href="#" onclick={ startMeeting } class="btn btn-primary">Start a Meeting</a>
+        <a href="#" onclick={ parent.startMeeting } class="btn btn-primary">Start a Meeting</a>
         <a href="#" class="btn btn-primary">Edit</a>
         <a href="#" class="btn btn-primary">Remove</a>
       </td>
@@ -38,9 +38,9 @@ ServerApiUtils.getAll();
     this.update()
   }
 
-  startMeeting(id) {
-    console.log('fsdf')
-    riot.route('meeting/start')
+  startMeeting(event) {
+    var index = this.items.indexOf(event.item.item);
+    riot.route('meeting/start/' + index);
   }
 
   flux_riot.storeMixin(this, opts.store, this.updateFromStore)
