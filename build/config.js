@@ -16,6 +16,10 @@ module.exports = {
     src: src + "/styles/**/*.less",
     dest: dest + "/styles"
   },
+  copy: {
+    src: src + "/styles/bootstrap.min.css",
+    dest: dest + "/styles"
+  },
   browserify: {
     opts: {
       fullPaths: true,
