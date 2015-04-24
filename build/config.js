@@ -17,7 +17,7 @@ module.exports = {
     dest: dest + "/styles"
   },
   copy_styles: {
-    src: src + "/styles/bootstrap.min.css",
+    src: src + "/styles/*.css",
     dest: dest + "/styles"
   },
   copy_fonts: {

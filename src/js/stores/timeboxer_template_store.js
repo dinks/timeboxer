@@ -20,6 +20,23 @@ var _templates = [{
       "time": "0.5"
     }
   ]
+}, {
+  "name": "Hackday 2014 Time Boxer Presentation 2",
+  "agenda": [
+    {
+      "name": "Short Brief",
+      "time": "2"
+    }, {
+      "name": "Presentation of Details",
+      "time": "5"
+    }, {
+      "name": "Summary",
+      "time": "2"
+    }, {
+      "name": "Feedback",
+      "time": "0.5"
+    }
+  ]
 }];
 
 var getTemplates = function () {

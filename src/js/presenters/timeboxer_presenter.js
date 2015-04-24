@@ -1,7 +1,7 @@
 var riot = require('riot/riot');
 var timeboxer_template_store = require('../stores/timeboxer_template_store.js');
 
-require('../components/timeboxer_template/index.tag');
+require('../components/index.tag');
 require('../components/timeboxer_template/add.tag');
 require('../components/timeboxer_template/edit.tag');
 
@@ -24,12 +24,13 @@ var mount = function(tag, opts) {
 module.exports = {
   index: function() {
     unmount();
-    return app_tag = mount('timeboxer-template-index', {
-      title: "Timeboxer - Meeting Minutes"
+    return app_tag = mount('timeboxer-index', {
+      title: "Templates",
+      store: timeboxer_template_store
     });
   },
 
-  add: function() {
+  template_add: function() {
     unmount();
 
     return app_tag = mount('timeboxer-template-add', {
@@ -38,7 +39,7 @@ module.exports = {
     });
   },
 
-  edit: function(id) {
+  template_edit: function(id) {
     unmount();
     return app_tag = mount('timeboxer-template-edit', {
       title: "Edit Timeboxer Template",

@@ -3,12 +3,40 @@ var flux_riot = require('flux-riot')
 
 <timeboxer-template-index>
 
-  <div class="jumbotron">
-    <h1>Meeting Minutes for all</h1>
-    <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
-    <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>
-  </div>
-
   <h3>{ opts.title }</h3>
+
+  <table class="table table-hover">
+    <tr>
+      <th>Template</th>
+      <th>Actions</th>
+    </tr>
+    <tr each={ item in this.items }>
+      <td><h4>{ item.name }</h4></td>
+      <td>
+        <a href="#" class="btn btn-primary">Create a Meeting</a>
+        <a href="#" class="btn btn-primary">Edit</a>
+        <a href="#" class="btn btn-primary">Remove</a>
+      </td>
+    </tr>
+  </table>
+
+  <a href="#" onclick={ add } class="btn btn-primary">Add New Template</a>
+
+  add() {
+    riot.route('templates/add')
+  }
+
+  getDataFromStore() {
+    this.items = this.store.getAll()
+  }
+
+  updateFromStore() {
+    this.getDataFromStore()
+    this.update()
+  }
+
+  flux_riot.storeMixin(this, opts.store, this.updateFromStore)
+
+  this.getDataFromStore()
 
 </timeboxer-template-index>

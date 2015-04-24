@@ -3,8 +3,8 @@ var BaseRouter = require('flux-riot').BaseRouter;
 var timeboxer_presenter = require('../presenters/timeboxer_presenter.js');
 
 BaseRouter.routes(timeboxer_presenter.index,
-  'templates/add', timeboxer_presenter.add,
-  'templates/edit/:id', timeboxer_presenter.edit);
+  'templates/add', timeboxer_presenter.template_add,
+  'templates/edit/:id', timeboxer_presenter.template_edit);
 
 module.exports = {
   start: BaseRouter.start
