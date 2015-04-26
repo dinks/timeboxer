@@ -4,24 +4,36 @@ var storage = require('./localStorage.js');
 
 function ServerApiUtils() {
   this.init = function() {
-    // Parse.initialize("PEdVTpEnHxhjwXHMjkStSlAMU75xq7TKxMut60BD",
-    //   "vhbx9wTQMwM0821NgzMs0xq2SxHMzBbYdZMZWg1x");
-    // this.boxerObj = Parse.Object.extend("Hackday2");
-    // this.query = new Parse.Query(this.boxerObj);
+    Parse.initialize("PEdVTpEnHxhjwXHMjkStSlAMU75xq7TKxMut60BD",
+      "vhbx9wTQMwM0821NgzMs0xq2SxHMzBbYdZMZWg1x");
+    this.boxerClass = Parse.Object.extend("Hackday2");
+    this.query = new Parse.Query(this.boxerClass);
+    this.boxerObj = new this.boxerClass();
   };
   this.getAll = function () {
-    // this.query.find({
-    //   success: function(results) {
-    //
-    //   },
-    //   error: function(error) {
-    //     alert("Error: " + error.code + " " + error.message);
-    //   }
-    // });
-    TimeBoxer.serverDataReceived(storage.retrieve());
+    this.boxerObj.fetch({
+      success: function(results) {
+        console.log(results);
+        TimeBoxer.serverDataReceived(results.toJSON().results);
+      },
+      error: function(error) {
+        alert("Error: " + error.code + " " + error.message);
+      }
+    });
   };
-  this.saveAll = function (data) {
-    storage.save(data);
+  this.saveTemplate = function (data) {
+    this.boxerObj.save(data);
+  };
+  this.destroyTemplate = function (data) {
+    this.query.get(data.objectId, {
+      success: function (result) {
+        result.destroy({
+          success: function () {
+            console.log('destroyed');
+          }
+        });
+      }
+    })
   };
   this.init();
 };
