@@ -2,7 +2,19 @@
   "name": "timeboxer",
   "version": "0.0.1",
   "description": "Meeting Minutes",
-  "author": "dinks, jayasurian",
+  "author": "dinks",
+  "contributors": [
+    {
+      "name": "Jayasurian M",
+      "email": "jay@babbel.com",
+      "url": "https://github.com/jayasurian123"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dinks/timeboxer.git"
+  },
+  "homepage": "https://github.com/dinks/timeboxer",
   "license": "GNU GENERAL PUBLIC LICENSE",
   "devDependencies": {
     "browserify": "^8.1.3",
