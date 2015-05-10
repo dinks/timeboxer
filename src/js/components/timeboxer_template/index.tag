@@ -19,7 +19,7 @@ ServerApiUtils.getAll();
         <a href="#" onclick={ parent.startMeeting } class="btn btn-primary">
           <span class="glyphicon glyphicon-time" aria-hidden="true"></span> Start a Meeting
           </a>
-        <a href="#" class="btn btn-primary">
+        <a href="#" onclick={ parent.editMeeting } class="btn btn-primary">
           <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
         </a>
         <a href="#" onclick={ parent.removeMeeting } class="btn btn-primary">
@@ -49,6 +49,11 @@ ServerApiUtils.getAll();
   startMeeting(event) {
     var index = this.items.indexOf(event.item.item);
     riot.route('meeting/start/' + index);
+  }
+
+  editMeeting(event) {
+    var index = this.items.indexOf(event.item.item);
+    riot.route('templates/edit/' + index);
   }
 
   removeMeeting (event){

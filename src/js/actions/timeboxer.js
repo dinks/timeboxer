@@ -14,6 +14,11 @@ module.exports = {
     console.log(task);
     return dispatch(ActionTypes.TEMPLATE_SAVE, task);
   },
+  updateTemplate: function(task, index) {
+    console.log(task);
+    var data = {task: task, index: index};
+    return dispatch(ActionTypes.TEMPLATE_UPDATE, data);
+  },
   removeTemplate: function(index) {
     return dispatch(ActionTypes.TEMPLATE_REMOVE, index);
   },
