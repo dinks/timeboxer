@@ -24,6 +24,15 @@ function ServerApiUtils() {
   this.saveTemplate = function (data) {
     this.boxerObj.save(data);
   };
+  this.updateTemplate = function (data) {
+    this.query.get(data.objectId, {
+      success: function (result) {
+        result.set('agenda', data.agenda);
+        result.save();
+        console.log(result);
+      }
+    });
+  };
   this.destroyTemplate = function (data) {
     this.query.get(data.objectId, {
       success: function (result) {

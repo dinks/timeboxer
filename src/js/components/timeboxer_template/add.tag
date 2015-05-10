@@ -1,4 +1,3 @@
-var timeboxer = require('../../actions/timeboxer.js');
 var flux_riot = require('flux-riot');
 var TimeBoxer = require('../../actions/timeboxer.js');
 

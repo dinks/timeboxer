@@ -151,10 +151,15 @@ var flux_riot = require('flux-riot')
   }
 
   flux_riot.storeMixin(this, opts.template_store, this.updateFromStore);
+  this.on('mount', function() {
+    this.getTemplateFromStore();
+    this.initClock();
+    this.resetStatus();
+    this.setCurrentAgenda();
+  });
 
-  this.getTemplateFromStore();
-  this.initClock();
-  this.resetStatus();
-  this.setCurrentAgenda();
+  this.on('unmount', function() {
+    this.timerClock.stop();
+  });
 
 </timeboxer-meeting-start>
