@@ -65,6 +65,8 @@ var TimeBoxer = require('../../actions/timeboxer.js');
 
   updateAgenda() {
 
+    var templateName = this.templateName.value;
+
     var itemNames = $(this.root).find('[name="itemName"]');
     var itemTimes = $(this.root).find('[name="itemTime"]');
 
@@ -78,6 +80,7 @@ var TimeBoxer = require('../../actions/timeboxer.js');
                                          time : itemTimes[index].value
                                        };
     }
+    this.agendaItems.name = templateName;
     TimeBoxer.updateTemplate(this.agendaItems, opts.templateId);
     riot.route('#');
   }
