@@ -28,8 +28,8 @@ function ServerApiUtils() {
     this.query.get(data.objectId, {
       success: function (result) {
         result.set('agenda', data.agenda);
+        result.set('name', data.name);
         result.save();
-        console.log(result);
       }
     });
   };
