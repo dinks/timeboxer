@@ -5,8 +5,9 @@ var TimeBoxer = require('../../actions/timeboxer.js');
   <li class="list-group-item" >
     <input type="text" value={agenda.name} name="itemName"> <span> For </span>
     <input type="text" value={agenda.time} name="itemTime"> <span> Minutes </span>
-    <span onclick={moveUp} data-index={index} class="glyphicon glyphicon-arrow-up" />
-    <span onclick={moveDown} data-index={index} class="glyphicon glyphicon-arrow-down" />
+    <span onclick={moveUp} data-index={index} class="btn btn-default glyphicon glyphicon-arrow-up"> </span>
+    <span onclick={moveDown} data-index={index} class="btn btn-default glyphicon glyphicon-arrow-down"> </span>
+    <span onclick={deleteItem} data-index={index} class="btn btn-default glyphicon glyphicon-remove"> </span>
   </li>
 
   moveUp (event) {
@@ -32,12 +33,18 @@ var TimeBoxer = require('../../actions/timeboxer.js');
       TimeBoxer.updateTemplate(this.parent.agendaItems, this.parent.opts.templateId);
     }
   }
+  deleteItem (event) {
+    var index = parseInt(event.target.dataset.index, 10);
+    var agendas = this.parent.agendaItems.agenda;
+    agendas.splice(index, 1); // remove the array item
+    TimeBoxer.updateTemplate(this.parent.agendaItems, this.parent.opts.templateId);
+  }
 </timer-list>
 
 <timeboxer-template-edit>
   <p if={opts.is_error}> Fill up all the values </p>
 
-  {opts.title}
+  <h4> {opts.title} </h4>
   <form onsubmit={updateAgenda}>
     <div class="form-group">
       <input type="text" class="form-control" id="templateName" value={agendaItems.name}>
