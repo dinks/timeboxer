@@ -32,6 +32,16 @@ var flux_riot = require('flux-riot')
         </div>
       </div>
 
+      <div class="row">
+        <div class="col-md-3">
+          <a href="#" onclick={ previousAgenda } class="btn btn-xs btn-default">
+            <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+            Previous
+          </a>
+          <a href="#" onclick={ reduceTime } class="btn btn-xs btn-default">-1</a>
+          <a href="#" onclick={ increaseTime } class="btn btn-xs btn-default">+1</a>
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
       <ul class="list-group">
@@ -83,6 +93,25 @@ var flux_riot = require('flux-riot')
     $('#agendaItem'+this.currentAgendaIndex).prop('checked', true);
     this.currentAgendaIndex++;
     this.setCurrentAgenda();
+  }
+
+  previousAgenda() {
+    this.resetStatus();
+    this.currentAgendaIndex--;
+    $('#agendaItem'+this.currentAgendaIndex).prop('checked', false);
+    this.setCurrentAgenda();
+  }
+
+  reduceTime () {
+    var remainingTime = this.timerClock.getTime().time;
+    if (remainingTime - 60 > 0) {
+      this.timerClock.setTime(remainingTime - 59);
+    }
+  }
+
+  increaseTime () {
+    var remainingTime = this.timerClock.getTime().time;
+    this.timerClock.setTime(remainingTime + 61);
   }
 
   initClock() {
