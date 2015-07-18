@@ -11,11 +11,9 @@ var dispatch = function(type, data) {
 
 module.exports = {
   saveTemplate: function(task) {
-    console.log(task);
     return dispatch(ActionTypes.TEMPLATE_SAVE, task);
   },
   updateTemplate: function(task, index) {
-    console.log(task);
     var data = {task: task, index: index};
     return dispatch(ActionTypes.TEMPLATE_UPDATE, data);
   },
@@ -23,7 +21,6 @@ module.exports = {
     return dispatch(ActionTypes.TEMPLATE_REMOVE, index);
   },
   serverDataReceived: function (data) {
-    console.log('serverDataReceived', data);
     return dispatch(ActionTypes.SERVER_FETCH_COMPLETE, data);
   }
 };

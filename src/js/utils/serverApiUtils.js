@@ -6,14 +6,13 @@ function ServerApiUtils() {
   this.init = function() {
     Parse.initialize("PEdVTpEnHxhjwXHMjkStSlAMU75xq7TKxMut60BD",
       "vhbx9wTQMwM0821NgzMs0xq2SxHMzBbYdZMZWg1x");
-    this.boxerClass = Parse.Object.extend("Hackday1");
+    this.boxerClass = Parse.Object.extend("Hackday2");
     this.query = new Parse.Query(this.boxerClass);
     this.boxerObj = new this.boxerClass();
   };
   this.getAll = function () {
     this.boxerObj.fetch({
       success: function(results) {
-        console.log(results);
         TimeBoxer.serverDataReceived(results.toJSON().results);
       },
       error: function(error) {
