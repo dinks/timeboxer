@@ -6,7 +6,7 @@ function ServerApiUtils() {
   this.init = function() {
     Parse.initialize("PEdVTpEnHxhjwXHMjkStSlAMU75xq7TKxMut60BD",
       "vhbx9wTQMwM0821NgzMs0xq2SxHMzBbYdZMZWg1x");
-    this.boxerClass = Parse.Object.extend("Hackday2");
+    this.boxerClass = Parse.Object.extend("Hackday1");
     this.query = new Parse.Query(this.boxerClass);
     this.boxerObj = new this.boxerClass();
   };

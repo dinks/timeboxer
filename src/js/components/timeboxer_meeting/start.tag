@@ -2,11 +2,7 @@ var timeboxer = require('../../actions/timeboxer.js')
 var flux_riot = require('flux-riot')
 
 <timeboxer-meeting-start>
-
-  <h3>{ this.template.name }</h3>
-
   <hr>
-
   <div class="row">
     <div class="col-md-8">
       <h3 class="agenda-name">{ this.currentAgenda.name }</h3>
@@ -44,9 +40,10 @@ var flux_riot = require('flux-riot')
       </div>
     </div>
     <div class="col-md-4">
+     <h4 class="counter-template-name"> { this.template.name } </h4>
       <ul class="list-group">
-        <li class="list-group-item" each={ item, index in this.template.agenda }>
-          <input type="checkbox" id={ 'agendaItem'+ index } disabled> <b>{ item.name }</b> <span class="badge">{ item.time } minutes</span>
+        <li class="list-group-item" each={ item, index in this.template.agenda } if={ !item.finished } >
+          <b>{ item.name }</b> <span class="badge">{ item.time } minutes</span>
         </li>
       </ul>
     </div>
@@ -85,12 +82,12 @@ var flux_riot = require('flux-riot')
   }
 
   getTemplateFromStore() {
-    this.template = opts.template_store.getAll()[opts.templateId];
+    return opts.template_store.getAll()[opts.templateId];
   }
 
   nextAgenda() {
     this.resetStatus();
-    $('#agendaItem'+this.currentAgendaIndex).prop('checked', true);
+    this.template.agenda[this.currentAgendaIndex]['finished'] = true;
     this.currentAgendaIndex++;
     this.setCurrentAgenda();
   }
@@ -98,7 +95,7 @@ var flux_riot = require('flux-riot')
   previousAgenda() {
     this.resetStatus();
     this.currentAgendaIndex--;
-    $('#agendaItem'+this.currentAgendaIndex).prop('checked', false);
+    this.template.agenda[this.currentAgendaIndex]['finished'] = false;
     this.setCurrentAgenda();
   }
 
@@ -146,9 +143,9 @@ var flux_riot = require('flux-riot')
   }
 
   updateFromStore() {
-    this.getTemplateFromStore()
-    this.setCurrentAgenda()
-    this.update()
+    this.getTemplateFromStore();
+    this.setCurrentAgenda();
+    this.update();
   }
 
   startOrPause() {
@@ -181,10 +178,11 @@ var flux_riot = require('flux-riot')
 
   flux_riot.storeMixin(this, opts.template_store, this.updateFromStore);
   this.on('mount', function() {
-    this.getTemplateFromStore();
+    this.template = this.getTemplateFromStore();
     this.initClock();
     this.resetStatus();
     this.setCurrentAgenda();
+    this.update();
   });
 
   this.on('unmount', function() {

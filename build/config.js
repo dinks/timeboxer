@@ -36,7 +36,7 @@ module.exports = {
     opts: {
       fullPaths: true,
       debug: true,
-      extensions: ['.coffee', '.js']
+      extensions: ['.js']
     },
     settings: {
       transform: [
@@ -44,7 +44,7 @@ module.exports = {
         [ "coffeeify", {"extension": "coffee"} ]
       ]
     },
-    src: src + '/js/index.coffee',
+    src: src + '/js/index.js',
     dest: dest + '/js',
     outputName: 'index.js'
   },
