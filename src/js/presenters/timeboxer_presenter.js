@@ -6,6 +6,7 @@ require('../components/timeboxer_template/add.tag');
 require('../components/timeboxer_template/edit.tag');
 require('../components/timeboxer_meeting/start.tag');
 
+
 require('../components/contact.tag');
 require('../components/about.tag');
 
