@@ -13,7 +13,6 @@ function ServerApiUtils() {
   this.getAll = function () {
     this.boxerObj.fetch({
       success: function(results) {
-        console.log(results);
         TimeBoxer.serverDataReceived(results.toJSON().results);
       },
       error: function(error) {

@@ -1,21 +1,17 @@
-var timeboxer = require('../../actions/timeboxer.js')
-var flux_riot = require('flux-riot')
+var timeboxer = require('../../actions/timeboxer.js');
+var flux_riot = require('flux-riot');
+var Timer = require('../../utils/timer');
+require('./timer.tag');
+
 
 <timeboxer-meeting-start>
-
-  <h3>{ this.template.name }</h3>
-
   <hr>
-
   <div class="row">
-    <div class="col-md-8">
-      <h3 class="agenda-name">{ this.currentAgenda.name }</h3>
-      <div id="timingClock"></div>
-
-      <div class="progress" id="progressbar">
-        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-        </div>
-      </div>
+    <div class="col-md-9">
+      <h4 class="agenda-name">{ this.currentAgenda.name }</h4>
+      <count-down-timer minutes={this.currentTime.minutes}
+                        seconds={this.currentTime.seconds}>
+      </count-down-timer>
 
       <div class="row">
         <div class="col-md-6">
@@ -43,10 +39,11 @@ var flux_riot = require('flux-riot')
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
+     <h4 class="counter-template-name"> { this.template.name } </h4>
       <ul class="list-group">
-        <li class="list-group-item" each={ item, index in this.template.agenda }>
-          <input type="checkbox" id={ 'agendaItem'+ index } disabled> <b>{ item.name }</b> <span class="badge">{ item.time } minutes</span>
+        <li class="list-group-item" each={ item, index in this.template.agenda } if={ !item.finished } >
+          <b>{ item.name }</b> <span class="badge">{ item.time }</span>
         </li>
       </ul>
     </div>
@@ -85,70 +82,61 @@ var flux_riot = require('flux-riot')
   }
 
   getTemplateFromStore() {
-    this.template = opts.template_store.getAll()[opts.templateId];
+    return opts.template_store.getAll()[opts.templateId];
   }
 
   nextAgenda() {
     this.resetStatus();
-    $('#agendaItem'+this.currentAgendaIndex).prop('checked', true);
+    this.template.agenda[this.currentAgendaIndex]['finished'] = true;
     this.currentAgendaIndex++;
     this.setCurrentAgenda();
+    this.update();
   }
 
   previousAgenda() {
     this.resetStatus();
     this.currentAgendaIndex--;
-    $('#agendaItem'+this.currentAgendaIndex).prop('checked', false);
+    this.template.agenda[this.currentAgendaIndex]['finished'] = false;
     this.setCurrentAgenda();
   }
 
   reduceTime () {
-    var remainingTime = this.timerClock.getTime().time;
+    var remainingTime = this.timerClock.getTime();
     if (remainingTime - 60 > 0) {
       this.timerClock.setTime(remainingTime - 59);
     }
   }
 
   increaseTime () {
-    var remainingTime = this.timerClock.getTime().time;
-    this.timerClock.setTime(remainingTime + 61);
+    var remainingTime = this.timerClock.getTime();
+    this.currentAgendaTime = remainingTime + 60;
+    this.timerClock.setTime(this.currentAgendaTime);
+  }
+
+  updateCurrentTime (time) {
+    this.currentTime = {
+      minutes: Math.floor(time/60),
+      seconds: time % 60
+    };
   }
 
   initClock() {
-    this.timerClock = $(this.timingClock).FlipClock({
-      autoStart: false,
-      countdown: true,
-      clockFace: 'MinuteCounter',
-      callbacks: {
-        interval: function() {
-          var t = this.timerClock.getTime();
-          var percent = (t*100)/this.currentAgendaTime;
-          var extraClass = '';
-
-          if (percent <= 20) {
-            extraClass = 'progress-bar-warning';
-          }
-
-          if (percent <= 10) {
-            extraClass = 'progress-bar-danger';
-          }
-
-          $(this.progressbar).find('.progress-bar').css({
-            width: percent + '%'
-          }).addClass(extraClass);
-
-          if(t <= 0) {
-            $(this.nextAgendaBtn).click();
-          }
-        }.bind(this)
-      }
+    this.timerClock = new Timer({
+      pulseCb: function (time) {
+        this.updateCurrentTime(time);
+        this.update();
+      }.bind(this),
+      endCb: function () {
+        // $(this.nextAgendaBtn).click();
+      }.bind(this),
+      time: this.currentAgendaTime
     });
   }
 
   updateFromStore() {
-    this.getTemplateFromStore()
-    this.setCurrentAgenda()
-    this.update()
+    this.getTemplateFromStore();
+    this.setCurrentAgenda();
+    this.update();
   }
 
   startOrPause() {
@@ -181,10 +169,12 @@ var flux_riot = require('flux-riot')
 
   flux_riot.storeMixin(this, opts.template_store, this.updateFromStore);
   this.on('mount', function() {
-    this.getTemplateFromStore();
+    this.template = this.getTemplateFromStore();
     this.initClock();
     this.resetStatus();
     this.setCurrentAgenda();
+    this.updateCurrentTime(this.currentAgendaTime);
+    this.update();
   });
 
   this.on('unmount', function() {

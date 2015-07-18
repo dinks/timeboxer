@@ -48,7 +48,6 @@ TimeboxerTemplateStore = assign(new flux_riot.BaseStore(), {
       case ActionTypes.TEMPLATE_UPDATE:
         updateTemplate(action.data);
         serverUtil.updateTemplate(action.data.task);
-        console.log(action.data);
         TimeboxerTemplateStore.emitChange();
       break;
       case ActionTypes.TEMPLATE_REMOVE:
