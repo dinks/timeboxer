@@ -21,7 +21,9 @@
 }
 .danger {
   color: red;
+  border: 1px solid red;
 }
 .warning {
   color: #ff9800;
+  border: 1px solid #ff9800;
 }
