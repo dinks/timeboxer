@@ -10,7 +10,6 @@ function Timer(opts) {
       time = time - 1;
       pulseCb(time);
       timeOutId = setTimeout(function () {
-        pulseCb(time);
         updateTime();
       }, 1000);
     } else {
