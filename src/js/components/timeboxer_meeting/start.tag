@@ -1,11 +1,14 @@
 var timeboxer = require('../../actions/timeboxer.js');
 var flux_riot = require('flux-riot');
 var Timer = require('../../utils/timer');
+require('./progress.tag');
 require('./timer.tag');
-
 
 <timeboxer-meeting-start>
   <hr>
+  <progress-bar current-time="{this.currentTime.total}"
+                total-time="{this.currentAgendaTime}">
+  </progress-bar>
   <div class="row">
     <div class="col-md-9">
       <h4 class="agenda-name">{ this.currentAgenda.name }</h4>
@@ -15,13 +18,13 @@ require('./timer.tag');
 
       <div class="row">
         <div class="col-md-6">
-          <a href="#" onclick={ startOrPause } class="btn btn-block btn-success">
+          <a href="#" onclick={ startOrPause } class="btn btn-block start-pause-button">
             <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
             <span id="agendaContinue">Start</span>
           </a>
         </div>
         <div class="col-md-6">
-          <a href="#" onclick={ nextAgenda } class="btn btn-block btn-info" id="nextAgendaBtn">
+          <a href="#" onclick={ nextAgenda } class="btn btn-block next-button" id="nextAgendaBtn">
             <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
             Next
           </a>
@@ -116,7 +119,8 @@ require('./timer.tag');
   updateCurrentTime (time) {
     this.currentTime = {
       minutes: Math.floor(time/60),
-      seconds: time % 60
+      seconds: time % 60,
+      total: time
     };
   }
 
@@ -158,13 +162,6 @@ require('./timer.tag');
     this.timerClock.stop();
     this.currentAgendaStatus = 'paused';
     $(this.agendaContinue).html('Start');
-
-    $(this.progressbar).find('.progress-bar').
-    css({
-      width: '100%'
-    }).
-    removeClass('progress-bar-warning').
-    removeClass('progress-bar-danger');
   }
 
   flux_riot.storeMixin(this, opts.template_store, this.updateFromStore);
