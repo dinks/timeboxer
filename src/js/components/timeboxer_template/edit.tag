@@ -62,9 +62,12 @@ var TimeBoxer = require('../../actions/timeboxer.js');
         </li>
       </ul>
     </div>
-    <button class="btn btn-default" onclick={addNewRow}>New Item</button>
+    <button class="btn btn-default" onclick={insertEnd}>New Item</button>
     <button type="submit" class="btn btn-default">Update</button>
   </form>
+  insertEnd () {
+    this.addNewRow(this.agendaItems.agenda.length);
+  }
 
   addNewRow (rowNum) {
     var agenda = {
