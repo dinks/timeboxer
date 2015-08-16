@@ -8,6 +8,7 @@ var TimeBoxer = require('../../actions/timeboxer.js');
     <span onclick={moveUp} data-index={index} class="btn btn-default glyphicon glyphicon-arrow-up"> </span>
     <span onclick={moveDown} data-index={index} class="btn btn-default glyphicon glyphicon-arrow-down"> </span>
     <span onclick={deleteItem} data-index={index} class="btn btn-default glyphicon glyphicon-remove"> </span>
+    <span onclick={insertAbove} data-index={index} class="btn btn-default glyphicon glyphicon-open-file"> </span>
   </li>
 
   moveUp (event) {
@@ -39,6 +40,10 @@ var TimeBoxer = require('../../actions/timeboxer.js');
     agendas.splice(index, 1); // remove the array item
     TimeBoxer.updateTemplate(this.parent.agendaItems, this.parent.opts.templateId);
   }
+  insertAbove (event) {
+    var index = parseInt(event.target.dataset.index, 10);
+    this.addNewRow(index);
+  }
 </timer-list>
 
 <timeboxer-template-edit>
@@ -61,17 +66,16 @@ var TimeBoxer = require('../../actions/timeboxer.js');
     <button type="submit" class="btn btn-default">Update</button>
   </form>
 
-  addNewRow () {
+  addNewRow (rowNum) {
     var agenda = {
       name: '',
       time: ''
     };
-    this.agendaItems.agenda.push(agenda);
+    this.agendaItems.agenda.splice(rowNum, 0, agenda);
     this.update();
   }
 
   updateAgenda() {
-
     var templateName = this.templateName.value;
 
     var itemNames = $(this.root).find('[name="itemName"]');
@@ -89,7 +93,6 @@ var TimeBoxer = require('../../actions/timeboxer.js');
     }
     this.agendaItems.name = templateName;
     TimeBoxer.updateTemplate(this.agendaItems, opts.templateId);
-    riot.route('#');
   }
 
   updateFromStore() {
